@@ -1,5 +1,4 @@
 require "gibbon"
-require "rails_config"
 require "coffee-rails"
 require "uglifier"
 require "jquery-rails"

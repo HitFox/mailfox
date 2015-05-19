@@ -1,6 +1,1 @@
-<%= form_for MailpimpMailer::Customer.new, url: '/mp/newsletters/create', as: :newsletter, remote: true, html: { class: 'newsletter newsletter--footer' } do |f| %>
-  <%= f.hidden_field :list_id, value: '123' %>
-  <%= f.text_field :email, placeholder: 'example@example.com', class: 'newsletter__input' %>
-  <%= f.submit 'Submit', class: 'newsletter__submit button', data: { disable_with: "Wird Eingetragen..." } %>
-  <div class="newsletter__msg"></div>
-<% end %>
+<%= render partial: "mailpimp/newsletters/form", locals: {placeholder: 'example@email.com', list_id: '123', disable_with_message: 'Working...'} %>

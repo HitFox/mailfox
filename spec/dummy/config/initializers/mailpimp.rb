@@ -1,4 +1,4 @@
 Mailpimp.setup do |config|
 
-  config.mailchimp = Settings.mailchimp
+  config.mailservices = YAML.load_file("#{Rails.root}/config/settings.yml")
 end

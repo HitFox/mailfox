@@ -26,5 +26,5 @@ Bundler::GemHelper.install_tasks
 
 task :routes => 'app:environment' do
   Rails.application.reload_routes!
-  all_routes = RailsBlogEngine::Engine.routes.routes
+  all_routes = Mailpimp::Engine.routes.routes
 end
