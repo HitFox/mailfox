@@ -1,0 +1,4 @@
+mailchimp:
+  api_key: '123'
+  list_id:
+    customer: 'abc'

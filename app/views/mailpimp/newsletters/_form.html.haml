@@ -1,0 +1,5 @@
+= form_for MailpimpMailer::Customer.new, url: [:newsletter], as: :newsletter, remote: true, html: { class: 'newsletter newsletter--footer' } do |f|
+  = f.hidden_field :list_id, value: cms_block_content('newsletter.list_id')
+  = f.text_field :email, placeholder: cms_block_content('newsletter.placeholder'), class: 'newsletter__input'
+  = f.submit cms_block_content('newsletter.button'), class: 'newsletter__submit button', data: { disable_with: "Wird Eingetragen..." }
+  %div.newsletter__msg

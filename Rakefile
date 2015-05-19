@@ -24,3 +24,7 @@ load 'rails/tasks/statistics.rake'
 
 Bundler::GemHelper.install_tasks
 
+task :routes => 'app:environment' do
+  Rails.application.reload_routes!
+  all_routes = RailsBlogEngine::Engine.routes.routes
+end

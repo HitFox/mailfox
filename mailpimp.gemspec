@@ -22,4 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails_config", "~> 0.4"
   s.add_dependency "gibbon", "~> 1.1.5"
   s.add_dependency "jquery-rails", ">= 4.0"
+  s.add_dependency "uglifier", ">= 1.3.0"
+  s.add_dependency "coffee-rails", "~> 4.1.0"
+  s.add_dependency "email_validator", "1.6.0"
 end

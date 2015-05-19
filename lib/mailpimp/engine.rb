@@ -1,3 +1,10 @@
+require "gibbon"
+require "rails_config"
+require "coffee-rails"
+require "uglifier"
+require "jquery-rails"
+require "email_validator"
+
 module Mailpimp
   class Engine < ::Rails::Engine
     isolate_namespace Mailpimp
