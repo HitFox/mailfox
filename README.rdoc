@@ -26,7 +26,7 @@ Add a <tt>mailpimp.rb</tt> file to your <tt>config/initializers</tt> folder:
 You can now paste this into a view if you want to render a newsletter subscribe form:
 
 
-<%= render partial: "mailpimp/newsletters/form", locals: {placeholder: 'example@email.com', list_id: 'exampleID', disable_with_message: 'exampleMessage', submit_button_message: 'exampleSubmit'} %>
+  <%= render partial: "mailpimp/newsletters/form", locals: {placeholder: 'example@email.com', list_id: 'exampleID', disable_with_message: 'exampleMessage', submit_button_message: 'exampleSubmit'} %>
 
 Or, if you are using the HitFox fork of CMS, you can create a snippet for easy use on your pages:
 
