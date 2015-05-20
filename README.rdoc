@@ -20,6 +20,10 @@ Add a <tt>mailpimp.rb</tt> file to your <tt>config/initializers</tt> folder:
   Mailpimp.setup do |config|
     config.mailservices = YAML.load_file("#{Rails.root}/config/mailpimp_settings.yml")
   end
+  
+Add the following line to your +routes.rb+ file:
+
+<tt>mount Mailpimp::Engine => "/mp"</tt>
 
 == Usage
 
