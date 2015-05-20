@@ -10,17 +10,40 @@ Add this to your Gemfile:
 
 Add a <tt>mailpimp_settings.yml</tt> file to your +config+ folder with the default configurations:
 
-<tt>
-mailchimp:
-  api_key:
-  list_id:
-    customer:
-</tt>
+  mailchimp:
+    api_key:
+    list_id:
+      customer:
 
 Add a <tt>mailpimp.rb</tt> file to your <tt>config/initializers</tt> folder:
 
-<tt>
-Mailpimp.setup do |config|
-  config.mailservices = YAML.load_file("#{Rails.root}/config/mailpimp_settings.yml")
-end
-</tt>
+  Mailpimp.setup do |config|
+    config.mailservices = YAML.load_file("#{Rails.root}/config/mailpimp_settings.yml")
+  end
+  
+Add the following line to your +routes.rb+ file:
+
+<tt>mount Mailpimp::Engine => "/mp"</tt>
+
+== Usage
+
+You can now paste this into a view if you want to render a newsletter subscribe form:
+
+
+  <%= render partial: "mailpimp/newsletters/form", locals: {placeholder: 'example@email.com', list_id: 'exampleID', disable_with_message: 'exampleMessage', submit_button_message: 'exampleSubmit'} %>
+
+Or, if you are using the HitFox fork of CMS, you can create a snippet for easy use on your pages:
+
+  {{ cms:field:newsletter.list_id }}
+  {{ cms:field:newsletter.placeholder }}
+  {{ cms:field:newsletter.disable_with_message }}
+  {{ cms:field:newsletter.button }}
+
+  {{ cms:partial:mailpimp/newsletters/cms/form }}
+  
+== Endnote
+
+Feel free to fork and improve the functionality/styling/behavior of this widget!
+
+
+
