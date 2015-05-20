@@ -1,6 +1,4 @@
 require "gibbon"
-require "coffee-rails"
-require "uglifier"
 require "jquery-rails"
 require "email_validator"
 
