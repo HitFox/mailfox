@@ -10,20 +10,16 @@ Add this to your Gemfile:
 
 Add a <tt>mailpimp_settings.yml</tt> file to your +config+ folder with the default configurations:
 
-<tt>
   mailchimp:
     api_key:
     list_id:
       customer:
-</tt>
 
 Add a <tt>mailpimp.rb</tt> file to your <tt>config/initializers</tt> folder:
 
-<tt>
   Mailpimp.setup do |config|
     config.mailservices = YAML.load_file("#{Rails.root}/config/mailpimp_settings.yml")
   end
-</tt>
 
 == Usage
 
