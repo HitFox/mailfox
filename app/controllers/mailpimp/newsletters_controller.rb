@@ -36,7 +36,7 @@ module Mailpimp
   #
 
   def create
-    @customer = MailpimpMailer::Customer.new(permitted_params)
+    @customer = MailService::Customer.new(permitted_params)
 
     respond_to do |format|
       if @customer.save

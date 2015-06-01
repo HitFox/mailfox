@@ -1,4 +1,4 @@
-module MailpimpMailer
+module MailService
   class Member
 
     #
@@ -109,8 +109,8 @@ module MailpimpMailer
           @info = response[:data].first if response[:success_count] && response[:success_count] >= 1
         end
       rescue => e
-        Rails.logger.info "**[MailpimpMailer Error][Info] #{e.message}"
-        Rails.logger.warn "**[MailpimpMailer Error][Info] #{e.backtrace.join("\n")}" if Rails.env.development?
+        Rails.logger.info "**[MailService Error][Info] #{e.message}"
+        Rails.logger.warn "**[MailService Error][Info] #{e.backtrace.join("\n")}" if Rails.env.development?
       end
       
       @info || {}
@@ -133,8 +133,8 @@ module MailpimpMailer
           merge_vars: { mc_language: locale }
         )
       rescue => e
-        Rails.logger.info "**[MailpimpMailer Error][Save] #{e.message}"
-        Rails.logger.warn "**[MailpimpMailer Error][Save] #{e.backtrace.join("\n")}" if Rails.env.development?
+        Rails.logger.info "**[MailService Error][Save] #{e.message}"
+        Rails.logger.warn "**[MailService Error][Save] #{e.backtrace.join("\n")}" if Rails.env.development?
         false
       end
     end
@@ -146,8 +146,8 @@ module MailpimpMailer
           email: { email: email }
         )
       rescue => e
-        Rails.logger.info "**[MailpimpMailer Error][Destroy] #{e.message}"
-        Rails.logger.warn "**[MailpimpMailer Error][Destroy] #{e.backtrace.join("\n")}" if Rails.env.development?
+        Rails.logger.info "**[MailService Error][Destroy] #{e.message}"
+        Rails.logger.warn "**[MailService Error][Destroy] #{e.backtrace.join("\n")}" if Rails.env.development?
       end
     end
 
@@ -172,9 +172,9 @@ module MailpimpMailer
     #
 
     def self.create(attributes = {})
-      mailpimp_mailer = new(attributes)
-      mailpimp_mailer.save
-      mailpimp_mailer
+      mailservice = new(attributes)
+      mailservice.save
+      mailservice
     end
 
     def self.find_by_email(email)
@@ -187,8 +187,8 @@ module MailpimpMailer
       begin
         new(options.slice(:email, :list_id)).info.present?
       rescue => e  
-        Rails.logger.info "**[MailpimpMailer Error][Exists] #{e.message}"   
-        Rails.logger.warn "**[MailpimpMailer Error][Exists] #{e.backtrace.join("\n")}" if Rails.env.development?   
+        Rails.logger.info "**[MailService Error][Exists] #{e.message}"   
+        Rails.logger.warn "**[MailService Error][Exists] #{e.backtrace.join("\n")}" if Rails.env.development?   
         e.message
       end
     end

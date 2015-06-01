@@ -1,4 +1,4 @@
-module MailpimpMailer
+module MailService
   class Customer < Member
 
     #

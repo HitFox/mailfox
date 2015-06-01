@@ -1,4 +1,4 @@
-module MailpimpMailer
+module MailService
   class List
 
     #
@@ -100,8 +100,8 @@ module MailpimpMailer
       begin
         parent.connection.lists.list(options).with_indifferent_access
       rescue => e  
-        Rails.logger.info "**[MailpimpMailer Error][Exists] #{e.message}"   
-        Rails.logger.warn "**[MailpimpMailer Error][Exists] #{e.backtrace.join("\n")}" if Rails.env.development?
+        Rails.logger.info "**[MailService Error][Exists] #{e.message}"   
+        Rails.logger.warn "**[MailService Error][Exists] #{e.backtrace.join("\n")}" if Rails.env.development?
         {}
       end
     end
