@@ -9,9 +9,7 @@ module MailService
     #
     #
 
-    extend ActiveModel::Translation
-
-    include ActiveModel::Validations, ActiveModel::Conversion
+    include ActiveModel::Model
 
     #
     # Constants
