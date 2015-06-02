@@ -36,14 +36,10 @@ module Mailpimp
   #
 
   def create
-    @customer = MailService::Customer.new(permitted_params)
+    @customer = MailService::Customer.create(permitted_params)
 
     respond_to do |format|
-      if @customer.save
-        format.js
-      else
-        format.js
-      end
+      format.js
     end
   end
 

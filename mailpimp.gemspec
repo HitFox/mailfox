@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Mailpimp::VERSION
   s.authors     = ["HitFox"]
   s.email       = ["develop@hitfoxgroup.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Mailpimp."
-  s.description = "TODO: Description of Mailpimp."
+  s.homepage    = "hitfoxgroup.com"
+  s.summary     = "Quickly plugin Mailchimp, including a CMS-snippet"
+  s.description = "An easy-to-implement, reusable newsletter subscribe widget that connects with Mailchimp."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mailpimp (0.0.3)
+    mailpimp (0.0.4)
       email_validator (= 1.6.0)
       gibbon (~> 1.1.5)
       jquery-rails (>= 4.0)

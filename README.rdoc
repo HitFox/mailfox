@@ -40,7 +40,21 @@ Or, if you are using the HitFox fork of CMS, you can create a snippet for easy u
   {{ cms:field:newsletter.button }}
 
   {{ cms:partial:mailpimp/newsletters/cms/form }}
-  
+
+=== Customizing Your Implementation
+
+You can customize most of the end-user behavior of the Mailpimp to suit your own needs. If the default view structure does not work for you, add a new <tt>_form.html.haml</tt> file in <tt>app/views/mailpimp/newsletters</tt>.
+
+Success and errors can be customized in the <tt>create.js.erb</tt> file in the same directory.
+
+One note: if you want to access your host application's helper methods, add a helper file like this in <tt>app/helpers/mailpimp/newsletters_helper.rb</tt>:
+
+  Module Mailpimp
+    Module NewslettersHelper
+      include ::MyHelper
+    end
+  end
+
 == Endnote
 
 Feel free to fork and improve the functionality/styling/behavior of this widget!
