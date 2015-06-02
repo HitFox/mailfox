@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Mailpimp::VERSION
   s.authors     = ["HitFox"]
   s.email       = ["develop@hitfoxgroup.com"]
-  s.homepage    = "hitfoxgroup.com"
+  s.homepage    = "http://hitfoxgroup.com"
   s.summary     = "Quickly plugin Mailchimp, including a CMS-snippet"
   s.description = "An easy-to-implement, reusable newsletter subscribe widget that connects with Mailchimp."
   s.license     = "MIT"
