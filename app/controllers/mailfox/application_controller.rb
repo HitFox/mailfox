@@ -1,5 +1,5 @@
-module Mailpimp
+module Mailfox
   class ApplicationController < ActionController::Base
-    helper Mailpimp::ApplicationHelper
+    helper Mailfox::ApplicationHelper
   end
 end

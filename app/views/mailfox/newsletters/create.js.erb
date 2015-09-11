@@ -1,0 +1,16 @@
+<% if @customer.errors.empty? %>
+
+$('.mailfox-newsletter-msg').html('<%= t(".success") %>');
+$('.mailfox-newsletter-input').val('');
+$('.mailfox-newsletter-form').removeClass('mailfox-newsletter-error').addClass('mailfox-newsletter-success');
+
+setTimeout(function() {
+  $('.mailfox-newsletter-form').removeClass('mailfox-newsletter-success');
+}, 5000);
+
+<% else %>
+
+$('.mailfox-newsletter-msg').html('<%= error_messages_for(@customer, length: 1).html_safe %>');
+$('.mailfox-newsletter-form').removeClass('mailfox-newsletter-success').addClass('mailfox-newsletter-error');
+
+<% end %>

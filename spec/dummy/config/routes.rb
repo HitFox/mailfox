@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  mount Mailpimp::Engine => "/mp"
+  mount Mailfox::Engine => "/mp"
 
   get 'main/index', to: 'main#index'
 end

@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :mailpimp do
+# task :mailfox do
 #   # Task goes here
 # end

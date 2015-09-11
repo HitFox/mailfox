@@ -1,13 +1,13 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "mailpimp/version"
+require "mailfox/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "mailpimp"
-  s.version     = Mailpimp::VERSION
-  s.authors     = ["HitFox"]
+  s.name        = "mailfox"
+  s.version     = Mailfox::VERSION
+  s.authors     = ["Adam Bahlke", "Michael Rüffer"]
   s.email       = ["develop@hitfoxgroup.com"]
   s.homepage    = "http://hitfoxgroup.com"
   s.summary     = "Quickly plugin Mailchimp, including a CMS-snippet"

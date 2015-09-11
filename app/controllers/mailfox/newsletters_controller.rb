@@ -1,5 +1,5 @@
-module Mailpimp
-  class NewslettersController < Mailpimp::ApplicationController
+module Mailfox
+  class NewslettersController < Mailfox::ApplicationController
 
   #
   # Settings

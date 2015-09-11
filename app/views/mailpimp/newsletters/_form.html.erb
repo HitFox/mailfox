@@ -1,6 +1,0 @@
-<%= form_for MailService::Customer.new, url: mailpimp.newsletter_subscribe_path, as: :newsletter, remote: true, html: { class: 'mailpimp-newsletter-form' } do |f| %>
-  <%= f.hidden_field :list_id, value: list_id %>
-  <%= f.text_field :email, placeholder: placeholder, class: 'mailpimp-newsletter-input' %>
-  <%= f.submit submit_button_message, class: 'mailpimp-newsletter-submit', data: { disable_with: disable_with_message } %>
-  <div class="mailpimp-newsletter-msg"></div>
-<% end %>

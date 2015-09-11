@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mailpimp (0.0.5)
+    mailfox (1.0.0)
       email_validator (= 1.6.0)
       gibbon (~> 1.1.5)
       jquery-rails (>= 4.0)
@@ -166,7 +166,7 @@ PLATFORMS
 DEPENDENCIES
   capybara (~> 2.4.4)
   launchy
-  mailpimp!
+  mailfox!
   poltergeist
   pry
   rspec-rails (~> 3.2.1)

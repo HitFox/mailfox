@@ -2,9 +2,9 @@ require "gibbon"
 require "jquery-rails"
 require "email_validator"
 
-module Mailpimp
+module Mailfox
   class Engine < ::Rails::Engine
-    isolate_namespace Mailpimp
+    isolate_namespace Mailfox
 
     config.generators do |g|
       g.test_framework :rspec

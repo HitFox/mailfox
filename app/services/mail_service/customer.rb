@@ -58,7 +58,7 @@ module MailService
     #
 
     def initialize(attributes = {})
-      defaults = { list_id: Mailpimp.mailservices['mailchimp']['list_id']['customer'] }
+      defaults = { list_id: Mailfox.mailservices['mailchimp']['list_id']['customer'] }
       attributes = defaults.merge(attributes).symbolize_keys
       
       super

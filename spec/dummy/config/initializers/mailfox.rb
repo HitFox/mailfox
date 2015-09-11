@@ -1,4 +1,4 @@
-Mailpimp.setup do |config|
+Mailfox.setup do |config|
 
   config.mailservices = YAML.load_file("#{Rails.root}/config/settings.yml")
 end

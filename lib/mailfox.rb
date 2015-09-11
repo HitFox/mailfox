@@ -1,6 +1,6 @@
-require "mailpimp/engine"
+require "mailfox/engine"
 
-module Mailpimp
+module Mailfox
   mattr_accessor :mailservices
   @@mailservices = nil
 
