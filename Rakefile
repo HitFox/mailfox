@@ -15,12 +15,9 @@ RDoc::Task.new(:rdoc) do |rdoc|
 end
 
 APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
+
 load 'rails/tasks/engine.rake'
-
-
 load 'rails/tasks/statistics.rake'
-
-
 
 Bundler::GemHelper.install_tasks
 
@@ -28,3 +25,12 @@ task :routes => 'app:environment' do
   Rails.application.reload_routes!
   all_routes = Mailfox::Engine.routes.routes
 end
+
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
+
+
