@@ -3,10 +3,10 @@
 Mailfox
 ==============
 
-[![Build Status](https://img.shields.io/travis/HitFox/cm-sms-rails.svg?style=flat-square)](https://travis-ci.org/HitFox/mailfox)
-[![Gem](https://img.shields.io/gem/dt/cm-sms-rails.svg?style=flat-square)](https://rubygems.org/gems/mailfox)
-[![Code Climate](https://img.shields.io/codeclimate/github/HitFox/cm-sms-rails.svg?style=flat-square)](https://codeclimate.com/github/HitFox/mailfox)
-[![Coverage](https://img.shields.io/coveralls/HitFox/cm-sms-rails.svg?style=flat-square)](https://coveralls.io/github/HitFox/mailfox)
+[![Build Status](https://img.shields.io/travis/HitFox/mailfox.svg?style=flat-square)](https://travis-ci.org/HitFox/mailfox)
+[![Gem](https://img.shields.io/gem/dt/mailfox.svg?style=flat-square)](https://rubygems.org/gems/mailfox)
+[![Code Climate](https://img.shields.io/codeclimate/github/HitFox/mailfox.svg?style=flat-square)](https://codeclimate.com/github/HitFox/mailfox)
+[![Coverage](https://img.shields.io/coveralls/HitFox/mailfox.svg?style=flat-square)](https://coveralls.io/github/HitFox/mailfox)
 
 The Mailfox gem lets you quickly add Mailchimp-integrated newsletter signup forms to your application. You can render these forms straight in your application or through the HitFox fork of Comfortable Mexican Sofa.
 
@@ -16,7 +16,7 @@ Installation
 Add this to your Gemfile:
 
 ```ruby
-gem 'mailfox', git: 'git@github.com:HitFox/mailfox.git'
+gem 'mailfox'
 ```
 
 Add a `mailfox_settings.yml` file to your +config+ folder with the default configurations:
