@@ -8,7 +8,7 @@ Mailfox
 [![Code Climate](https://img.shields.io/codeclimate/github/HitFox/cm-sms-rails.svg?style=flat-square)](https://codeclimate.com/github/HitFox/mailfox)
 [![Coverage](https://img.shields.io/coveralls/HitFox/cm-sms-rails.svg?style=flat-square)](https://coveralls.io/github/HitFox/mailfox)
 
-The +Mailfox+ lets you quickly add Mailchimp-integrated newsletter signup forms to your application. You can render these forms straight in your application or through the HitFox fork of Comfortable Mexican Sofa.
+The Mailfox gem lets you quickly add Mailchimp-integrated newsletter signup forms to your application. You can render these forms straight in your application or through the HitFox fork of Comfortable Mexican Sofa.
 
 Installation
 ------------
