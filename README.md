@@ -16,7 +16,7 @@ Installation
 Add this to your Gemfile:
 
 ```ruby
-gem "mailfox", git: "git@github.com:HitFox/mailfox.git"
+gem 'mailfox', git: 'git@github.com:HitFox/mailfox.git'
 ```
 
 Add a `mailfox_settings.yml` file to your +config+ folder with the default configurations:
