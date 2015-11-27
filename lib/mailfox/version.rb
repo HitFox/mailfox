@@ -1,3 +1,7 @@
+require_relative 'gem_version'
+
 module Mailfox
-  VERSION = "1.0.0"
+  def self.version
+    gem_version
+  end
 end

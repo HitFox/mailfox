@@ -6,7 +6,7 @@ require "mailfox/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "mailfox"
-  s.version     = Mailfox::VERSION
+  s.version     = Mailfox.version
   s.authors     = ["Adam Bahlke", "Michael Rüffer"]
   s.email       = ["develop@hitfoxgroup.com"]
   s.homepage    = "http://hitfoxgroup.com"
