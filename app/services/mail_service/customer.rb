@@ -40,7 +40,7 @@ module MailService
     #
     #
     #
-            
+
     #
     # Callbacks
     # ---------------------------------------------------------------------------------------
@@ -59,9 +59,8 @@ module MailService
 
     def initialize(attributes = {})
       defaults = { list_id: Mailfox.mailservices['mailchimp']['list_id']['customer'] }
-      attributes = defaults.merge(attributes).symbolize_keys
-      
-      super
+
+      super defaults.merge(attributes)
     end
 
     #
@@ -98,6 +97,6 @@ module MailService
     #
 
     private
-  
+
   end
 end

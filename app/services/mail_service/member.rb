@@ -35,11 +35,7 @@ module MailService
     #
     #
 
-    attr_accessor :email, :list_id, :locale
-  
-    attr_reader :connection, :subscriber_id, :double_optin
-    
-    alias_method :name, :email
+    attr_reader :connection, :list_id, :email_address
 
     #
     # Validations
@@ -49,9 +45,9 @@ module MailService
     #
     #
 
-    validates :email, :list_id, presence: true
+    validates :email_address, :list_id, presence: true
 
-    validates :email, email: true, allow_blank: true
+    validates :email_address, email: true, allow_blank: true
 
     validate :uniqueness_of_email
 
@@ -70,21 +66,14 @@ module MailService
     #
     #
     #
-  
-    def initialize(attributes = {})
-      defaults = {
-        locale: I18n.locale,
-        double_optin: true
-      }
-      
-      attributes = defaults.merge(attributes).symbolize_keys
 
-      @email = attributes[:email]
-      @locale = attributes[:locale]
+    def initialize(attributes = {}, options = {})
+      @attributes = attributes.symbolize_keys
+
+      @email_address = @attributes[:email_address]
       @connection = self.class.parent.connection
-      @double_optin = attributes[:double_optin]
-      @list_id = attributes[:list_id]
-      
+      @list_id = @attributes[:list_id]
+
       yield self if block_given?
     end
 
@@ -100,64 +89,46 @@ module MailService
       List.find_by_list_id(list_id) if list_id
     end
 
-    def info
-      begin
-        unless @info
-          response = connection.lists.member_info(id: list_id, emails: [{ email: email}]).with_indifferent_access
-          @info = response[:data].first if response[:success_count] && response[:success_count] >= 1
-        end
-      rescue => e
-        Rails.logger.info "**[MailService Error][Info] #{e.message}"
-        Rails.logger.warn "**[MailService Error][Info] #{e.backtrace.join("\n")}" if Rails.env.development?
-      end
-      
-      @info || {}
-    end
-
-    def persisted?
-      false
-    end
-
     def save
       return false unless valid?
-
       return true if Rails.env.test?
 
       begin
-        connection.lists.subscribe(
-          id: list_id, 
-          email: { email: email },
-          double_optin: double_optin,
-          merge_vars: { mc_language: locale }
-        )
+        defaults = {
+          language: I18n.locale,
+          status: 'pending' # possible states: 'subscribed', 'unsubscribed', 'cleaned', 'pending'
+        }
+
+        connection.lists(list_id).members.create({ body: defaults.merge(@attributes) })
       rescue => e
-        Rails.logger.info "**[MailService Error][Save] #{e.message}"
-        Rails.logger.warn "**[MailService Error][Save] #{e.backtrace.join("\n")}" if Rails.env.development?
+        log_error(e)
         false
       end
     end
 
     def destroy
       begin
-        connection.lists.unsubscribe(
-          id: list_id, 
-          email: { email: email }
-        )
+        connection.lists(list_id).members(email_hashed).update(body: { status: "unsubscribed" })
       rescue => e
-        Rails.logger.info "**[MailService Error][Destroy] #{e.message}"
-        Rails.logger.warn "**[MailService Error][Destroy] #{e.backtrace.join("\n")}" if Rails.env.development?
+        log_error(e)
+        false
       end
     end
 
     def confirmed?
-      info[:timestamp_opt].present?
+      fetch()[:status] == 'subscribed'
     end
 
-    def method_missing(method_name, *args, &block)
-      if info.keys.include?(method_name.to_s)
-        info[method_name]
-      else
-        super
+    def fetch(options = {}, log = true)
+      return @fetch if @fetch
+
+      begin
+        @fetch = connection.lists(list_id).members(email_hashed).retrieve(params: options).with_indifferent_access
+
+        return @fetch
+      rescue => e
+        log_error(e) if log
+        nil
       end
     end
 
@@ -175,20 +146,19 @@ module MailService
       mailservice
     end
 
-    def self.find_by_email(email)
-      new(new(email: email).info.symbolize_keys)
+    def self.find_by_email(list_id, email, options = {}, log = true)
+      new(list_id: list_id, email_address: email).fetch(options, log)
     end
 
-    def self.exists?(options = {})
-      return false if options.blank?
+    def persisted?
+      false
+    end
 
-      begin
-        new(options.slice(:email, :list_id)).info.present?
-      rescue => e  
-        Rails.logger.info "**[MailService Error][Exists] #{e.message}"   
-        Rails.logger.warn "**[MailService Error][Exists] #{e.backtrace.join("\n")}" if Rails.env.development?   
-        e.message
-      end
+    def self.exists?(list_id, email, options = {})
+      return false if !defined?(list_id) || !defined?(email)
+
+      member = find_by_email(list_id, email, options, false)
+      return member ? true : false
     end
 
     #
@@ -211,12 +181,21 @@ module MailService
 
     private
 
+    def log_error(e)
+      Rails.logger.info "**[MailService Error][Info] #{e.message}"
+      Rails.logger.warn "**[MailService Error][Info] #{e.backtrace.join("\n")}" if Rails.env.development?
+    end
+
+    def email_hashed
+      Digest::MD5.hexdigest(email_address.to_s.downcase)
+    end
+
     def uniqueness_of_email
-      existence = self.class.exists?(email: email, list_id: list_id)
+      existence = self.class.exists?(list_id, email_address)
 
       case existence
-        when TrueClass then errors.add(:email, :taken)
-        when String then errors.add(:email, existence)
+      when TrueClass then errors.add(:email_address, :taken)
+      when String then errors.add(:email_address, existence)
       end
     end
 

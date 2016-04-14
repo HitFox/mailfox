@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 4.0"
 
   s.add_development_dependency "sqlite3"
-  s.add_dependency "gibbon", "~> 1.1.5"
+  s.add_dependency "gibbon", "~> 2.2.3"
   s.add_dependency "jquery-rails", ">= 4.0"
   s.add_dependency "email_validator", "1.6.0"
 end

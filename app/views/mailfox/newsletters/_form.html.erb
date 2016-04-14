@@ -1,6 +1,6 @@
 <%= form_for MailService::Customer.new, url: mailfox.newsletter_subscribe_path, as: :newsletter, remote: true, html: { class: 'mailfox-newsletter-form' } do |f| %>
   <%= f.hidden_field :list_id, value: list_id %>
-  <%= f.text_field :email, placeholder: placeholder, class: 'mailfox-newsletter-input' %>
+  <%= f.text_field :email_address, placeholder: placeholder, class: 'mailfox-newsletter-input' %>
   <%= f.submit submit_button_message, class: 'mailfox-newsletter-submit', data: { disable_with: disable_with_message } %>
   <div class="mailfox-newsletter-msg"></div>
 <% end %>
