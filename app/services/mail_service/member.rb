@@ -160,7 +160,7 @@ module MailService
     end
 
     def self.find_by_email(list_id, email, options = {}, log = false)
-      new({ list_id: list_id, email_address: email }, log: log).fetch(options)
+      new({ list_id: list_id, email_address: email }, log).fetch(options)
     end
 
     def persisted?
