@@ -67,7 +67,8 @@ module MailService
     #
     #
 
-    def initialize(attributes = {}, options = {})
+    def initialize(attributes = {}, log = false)
+      @log = log
       @attributes = attributes.symbolize_keys
 
       @email_address = @attributes[:email_address]
@@ -111,18 +112,17 @@ module MailService
     end
 
     def confirmed?
-      fetch()[:status] == 'subscribed'
+      fetch.try(:[], 'status') == 'subscribed'
     end
 
-    def fetch(options = {}, log = true)
+    def fetch(options = {})
       return @fetch if @fetch
 
       begin
         @fetch = connection.lists(list_id).members(email_hashed).retrieve(params: options).with_indifferent_access
-
-        return @fetch
+        @fetch
       rescue => e
-        log_error(e) if log
+        log_error(e)
         nil
       end
     end
@@ -135,14 +135,14 @@ module MailService
     #
     #
 
-    def self.create(attributes = {})
-      mailservice = new(attributes)
+    def self.create(attributes = {}, log = false)
+      mailservice = new(attributes, log)
       mailservice.save
       mailservice
     end
 
-    def self.find_by_email(list_id, email, options = {}, log = true)
-      new(list_id: list_id, email_address: email).fetch(options, log)
+    def self.find_by_email(list_id, email, options = {}, log = false)
+      new({ list_id: list_id, email_address: email }, log: log).fetch(options)
     end
 
     def persisted?
@@ -152,7 +152,7 @@ module MailService
     def self.exists?(list_id, email, options = {})
       return false if !defined?(list_id) || !defined?(email)
 
-      member = find_by_email(list_id, email, options, false)
+      member = find_by_email(list_id, email)
       return member ? true : false
     end
 
@@ -177,6 +177,8 @@ module MailService
     private
 
     def log_error(e)
+      return unless @log
+
       Rails.logger.info "**[MailService Error][Info] #{e.message}"
       Rails.logger.warn "**[MailService Error][Info] #{e.backtrace.join("\n")}" if Rails.env.development?
     end
