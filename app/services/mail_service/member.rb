@@ -213,7 +213,7 @@ module MailService
         attrs[:interests] = attrs[:interests].split(',').map{ |interest| [interest, true] }.to_h
       end
 
-      attrs
+      attrs.reject { |key, value| value.nil? }
     end
 
     def email_hashed
