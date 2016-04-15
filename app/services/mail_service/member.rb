@@ -49,7 +49,7 @@ module MailService
 
     validates :email_address, email: true, allow_blank: true
 
-    validate :uniqueness_of_email
+    validate :uniqueness_of_email, on: :create
 
     #
     # Callbacks
@@ -91,11 +91,23 @@ module MailService
     end
 
     def save
-      return false unless valid?
+      return false unless valid?(:create)
       return true if Rails.env.test?
 
       begin
         connection.lists(list_id).members.create({ body: transformAttributes })
+      rescue => e
+        log_error(e)
+        false
+      end
+    end
+
+    def update
+      return false unless valid?(:update)
+      return true if Rails.env.test?
+
+      begin
+        connection.lists(list_id).members(email_hashed).upsert({ body: transformAttributes })
       rescue => e
         log_error(e)
         false
@@ -138,6 +150,12 @@ module MailService
     def self.create(attributes = {}, log = false)
       mailservice = new(attributes, log)
       mailservice.save
+      mailservice
+    end
+
+    def self.update(attributes = {}, log = false)
+      mailservice = new(attributes, log)
+      mailservice.update
       mailservice
     end
 
