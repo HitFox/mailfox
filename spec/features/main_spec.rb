@@ -21,7 +21,7 @@ describe "main integration spec", js: true do
 
       click_button "Submit"
 
-      expect(page).to have_content("Email is invalid")
+      expect(page).to have_content("Email address is invalid")
     end
   end
 end

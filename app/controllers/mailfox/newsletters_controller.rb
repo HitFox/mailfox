@@ -64,7 +64,7 @@ module Mailfox
   private
 
   def permitted_params
-    params.require(:newsletter).permit(:email_address, :list_id)
+    params.require(:newsletter).permit(:email_address, :list_id, :interests)
   end
 
   end

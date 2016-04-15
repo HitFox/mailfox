@@ -94,12 +94,7 @@ module MailService
       return true if Rails.env.test?
 
       begin
-        defaults = {
-          language: I18n.locale,
-          status: 'pending' # possible states: 'subscribed', 'unsubscribed', 'cleaned', 'pending'
-        }
-
-        connection.lists(list_id).members.create({ body: defaults.merge(@attributes) })
+        connection.lists(list_id).members.create({ body: transformAttributes })
       rescue => e
         log_error(e)
         false
@@ -184,6 +179,21 @@ module MailService
     def log_error(e)
       Rails.logger.info "**[MailService Error][Info] #{e.message}"
       Rails.logger.warn "**[MailService Error][Info] #{e.backtrace.join("\n")}" if Rails.env.development?
+    end
+
+    # we need to prepare(transform) the attributes to be in the correct format
+    def transformAttributes
+      defaults = {
+        language: I18n.locale,
+        status: 'pending' # possible states: 'subscribed', 'unsubscribed', 'cleaned', 'pending'
+      }
+      attrs = defaults.merge(@attributes)
+
+      if attrs[:interests]
+        attrs[:interests] = attrs[:interests].split(',').map{ |interest| [interest, true] }.to_h
+      end
+
+      attrs
     end
 
     def email_hashed
