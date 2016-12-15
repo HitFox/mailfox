@@ -42,7 +42,7 @@ module MailService
     #
     #
     #
-            
+
     #
     # Callbacks
     # ---------------------------------------------------------------------------------------
@@ -82,23 +82,28 @@ module MailService
     def self.find_by_id(id)
       return nil unless id
 
-      response = fetch(filters: { list_id: id }).try(:with_indifferent_access)
-      response[:data].try(:map, &:with_indifferent_access).try(:first) if response[:total] == 1
+      response = fetch({ list_id: id })
     end
-  
+
     def self.all(options = {})
-      fetch(options)[:data].try(:map, &:with_indifferent_access)
+      fetch(options)[:lists]
     end
 
     def self.count(options = {})
-      fetch(options)[:total]
+      fetch(options)[:total_items]
     end
 
     def self.fetch(options = {})
       begin
-        parent.connection.lists.list(options).with_indifferent_access
-      rescue => e  
-        Rails.logger.info "**[MailService Error][Exists] #{e.message}"   
+        id = nil
+        if options[:list_id]
+          id = options[:list_id]
+          options.delete(:list_id)
+        end
+
+        parent.connection.lists(id).retrieve(params: options).with_indifferent_access
+      rescue => e
+        Rails.logger.info "**[MailService Error][Exists] #{e.message}"
         Rails.logger.warn "**[MailService Error][Exists] #{e.backtrace.join("\n")}" if Rails.env.development?
         {}
       end

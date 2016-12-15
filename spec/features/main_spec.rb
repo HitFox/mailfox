@@ -5,7 +5,7 @@ describe "main integration spec", js: true do
     it "displays success for valid email" do
       visit "/main/index"
 
-      fill_in "newsletter_email", with: "example@example.com"
+      fill_in "newsletter_email_address", with: "example@example.com"
 
       click_button "Submit"
 
@@ -17,11 +17,11 @@ describe "main integration spec", js: true do
     it "displays errors for an invalid email" do
       visit "/main/index"
 
-      fill_in "newsletter_email", with: "example"
+      fill_in "newsletter_email_address", with: "example"
 
       click_button "Submit"
 
-      expect(page).to have_content("Email is invalid")
+      expect(page).to have_content("Email address is invalid")
     end
   end
 end
